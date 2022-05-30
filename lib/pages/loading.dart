@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:world_time/services/world_time.dart';
 
 class Loading extends StatefulWidget {
+
   const Loading({Key? key}) : super(key: key);
 
   @override
@@ -10,36 +12,38 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
+  String liveTime = 'Loading';
 
-  void getTime() async{
-
-      //make the request
-      Response response = await get(Uri.parse('http://worldtimeapi.org/api/timezone/America/Argentina/Salta'));
-      // print(response.body);
-      Map data = jsonDecode(response.body);
-
-      //store properties from data
-      String dateTime = data['utc_datetime'];
-      String offSet = data['utc_offset'].substring(1,3);
-      print(dateTime + "  offset :"+ offSet);
-
-      //create date time object
-      DateTime liveTime = DateTime.parse(dateTime);
-      liveTime = liveTime.subtract(Duration(hours: int.parse(offSet)));
-      print(liveTime);
+   void setTime() async{
+    WorldTime worldTime = WorldTime(location:'Salta' , flag: 'America.png' , url:'America/Argentina/Salta' );
+    await worldTime.getTime();
+    // print('World time' + worldTime.time);
+    setState(() {
+      liveTime = worldTime.time;
+      Navigator.pushReplacementNamed(context, '/home',arguments: {
+        'time' :worldTime.time,
+        'location' :worldTime.location,
+        'flag' :worldTime.flag
+      });
+    });
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getTime();
+    setTime();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Loading Page'),
+      body: Padding(
+        padding: EdgeInsets.all(50.0),
+        child: Text(
+          liveTime
+        ),
+      ),
     );
   }
 }
