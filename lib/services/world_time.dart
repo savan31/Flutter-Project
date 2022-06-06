@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-
+import 'package:intl/intl.dart';
 
 
 class WorldTime {
@@ -29,7 +29,8 @@ class WorldTime {
       liveTime = liveTime.subtract(Duration(hours: int.parse(offSet)));
       // print(liveTime);
 
-      time = liveTime.toString();
+      time = DateFormat.jm().format(liveTime);
+      print(time);
     }
     catch(e){
       print('Error for getting data : $e');
