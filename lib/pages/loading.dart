@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart';
 import 'package:world_time/services/world_time.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
 
@@ -40,10 +41,12 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(50.0),
-        child: Text(
-          liveTime
-        ),
+        child: SpinKitPouringHourGlassRefined(
+          color: Colors.white,
+          size: 50.0,
+        )
       ),
+      backgroundColor: Colors.blueGrey,
     );
   }
 }
