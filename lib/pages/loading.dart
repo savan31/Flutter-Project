@@ -24,7 +24,8 @@ class _LoadingState extends State<Loading> {
       Navigator.pushReplacementNamed(context, '/home',arguments: {
         'time' :worldTime.time,
         'location' :worldTime.location,
-        'flag' :worldTime.flag
+        'flag' :worldTime.flag,
+        'isDay' :worldTime.isDay
       });
     });
   }

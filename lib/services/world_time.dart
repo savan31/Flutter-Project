@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
@@ -9,6 +10,7 @@ class WorldTime {
   late String time ; //Live time of location which is inserted
   late String flag ; //url to  an asset flag icon
   late String url ; //location url from API endpoint
+  late bool isDay; //check that is day or night
 
   WorldTime({required this.location,required this.flag,required this.url});
 
@@ -29,8 +31,12 @@ class WorldTime {
       liveTime = liveTime.subtract(Duration(hours: int.parse(offSet)));
       // print(liveTime);
 
+
       time = DateFormat.jm().format(liveTime);
       print(time);
+      //check that day or night
+      isDay = liveTime.hour > 6 && liveTime.hour < 20 ? true : false;
+      print(isDay);
     }
     catch(e){
       print('Error for getting data : $e');
