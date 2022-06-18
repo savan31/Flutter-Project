@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
                 children: [
                   FlatButton.icon(
                       onPressed: (){
-                        Navigator.pushNamed(context, '/');
+                        Navigator.pushNamed(context, '/location');
                       },
                       icon: Icon(
                           Icons.edit_location,
@@ -53,7 +53,8 @@ class _HomeState extends State<Home> {
                       Text(
                           data['location'],
                         style: TextStyle(
-                          fontSize: 35.0
+                          fontSize: 35.0,
+                          color: Colors.white
                         ),
                       ),
                     ],
@@ -66,6 +67,7 @@ class _HomeState extends State<Home> {
                         data['time'],
                         style: TextStyle(
                           fontSize: 60.0,
+                          color: Colors.white
                         ),
                       )
                     ],

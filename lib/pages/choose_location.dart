@@ -9,9 +9,6 @@ class ChooseLocation extends StatefulWidget {
 
 class _ChooseLocationState extends State<ChooseLocation> {
 
-  int addition = 0;
-
-
   @override
   Widget build(BuildContext context) {
     print('buid funcation called');
@@ -26,10 +23,9 @@ class _ChooseLocationState extends State<ChooseLocation> {
       body: RaisedButton(
         onPressed: (){
           setState(() {
-            addition++;
+
           });
         },
-        child:Text('Addition is $addition'),
       ),
     );
   }
