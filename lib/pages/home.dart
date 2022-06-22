@@ -8,12 +8,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+
   Map data = {};
   late String imageDayNight;
+
   @override
   Widget build(BuildContext context) {
 
-      data = ModalRoute.of(context)?.settings.arguments as Map;//getting map data from Loading intent
+      data = data.isNotEmpty? data : ModalRoute.of(context)?.settings.arguments as Map;//getting map data from Loading intent
+
       imageDayNight = data['isDay'] ? 'day.png' : 'night.png';
       late Color navBarBgColor = data['isDay'] ? Colors.orange : Colors.grey;
 // print('home data :  $data');
@@ -33,8 +36,17 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   FlatButton.icon(
-                      onPressed: (){
-                        Navigator.pushNamed(context, '/location');
+                      onPressed: () async {
+                      dynamic result =await Navigator.pushNamed(context, '/location');
+                      setState(() {
+                        data = {
+                          'time': result['time'],
+                          'location': result['location'],
+                          'isDay': result['isDay'],
+                          'flag': result['flag'],
+                        };
+                      });
+
                       },
                       icon: Icon(
                           Icons.edit_location,
